@@ -10,7 +10,7 @@ import com.upn.farmaappback.model.repository.UsuarioRepository;
 import com.upn.farmaappback.service.IUsuario;
 
 @Service
-public class UsuarioService implements IUsuario{
+public class UsuarioServiceImpl implements IUsuario{
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;

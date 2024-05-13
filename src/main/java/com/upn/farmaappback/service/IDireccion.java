@@ -1,10 +1,10 @@
 package com.upn.farmaappback.service;
 
-import com.upn.farmaappback.service.dto.DireccionesDTO;
-import com.upn.farmaappback.service.dto.PedidoDTO;
+import com.upn.farmaappback.service.dto.DireccionDTO;
 
 import java.util.List;
 
 public interface IDireccion {
-    List<DireccionesDTO> getAllDirecciones(Long  idUsuario);
+    List<DireccionDTO> getAllDirecciones(Long  idUsuario);
+    DireccionDTO saveDireccion(DireccionDTO direccion);
 }

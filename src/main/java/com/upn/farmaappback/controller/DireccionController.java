@@ -1,7 +1,7 @@
 package com.upn.farmaappback.controller;
 
 import com.upn.farmaappback.service.IDireccion;
-import com.upn.farmaappback.service.dto.DireccionesDTO;
+import com.upn.farmaappback.service.dto.DireccionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +20,18 @@ public class DireccionController {
     @GetMapping("getAllDirecciones/{idUsuario}")
     public ResponseEntity<Object> getAllDirecciones(@PathVariable Long idUsuario){
 
-        List<DireccionesDTO> direccionesDTO = iDireccion.getAllDirecciones(idUsuario);
-        if(direccionesDTO.isEmpty()){
+        List<DireccionDTO> direccionDTO = iDireccion.getAllDirecciones(idUsuario);
+        if(direccionDTO.isEmpty()){
             String mensaje = "Dirección no Encontrada";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensaje);
         }else {
-            return ResponseEntity.ok(direccionesDTO);
+            return ResponseEntity.ok(direccionDTO);
         }
+    }
+
+    @PostMapping("/saveDireccion")
+    public ResponseEntity<DireccionDTO> saveDireccion(@RequestBody DireccionDTO direccionDTO) {
+        DireccionDTO direccionGuardadaDTO = iDireccion.saveDireccion(direccionDTO);
+        return new ResponseEntity<>(direccionGuardadaDTO, HttpStatus.CREATED);
     }
 }

@@ -3,7 +3,7 @@ package com.upn.farmaappback.service.dto;
 import lombok.Data;
 
 @Data
-public class DireccionesDTO {
+public class DireccionDTO {
 
     private Long id;
     private String nombre;
@@ -11,6 +11,6 @@ public class DireccionesDTO {
     private String calle;
     private String numero;
     private String indicaciones;
-    private String num_contacto;
+    private String numContacto;
     private Long idUsuario;
 }

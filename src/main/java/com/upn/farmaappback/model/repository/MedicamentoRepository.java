@@ -1,12 +1,13 @@
 package com.upn.farmaappback.model.repository;
 
+import com.upn.farmaappback.model.CategoriaMed;
 import com.upn.farmaappback.model.Medicamento;
-import com.upn.farmaappback.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-import java.util.Optional;
+import java.util.List;
+
 
 public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> {
 
+  List<Medicamento> findMedicamentoByIdCategoria(CategoriaMed categoriaMed);
 }

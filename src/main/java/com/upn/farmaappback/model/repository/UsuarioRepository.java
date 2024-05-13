@@ -9,4 +9,5 @@ import com.upn.farmaappback.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	Optional<Usuario> findByUsername(String username);
+	//Optional<Usuario> findById(Long id);
 }

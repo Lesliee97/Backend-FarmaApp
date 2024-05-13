@@ -8,9 +8,11 @@ import com.upn.farmaappback.model.repository.MedicamentoRepository;
 import com.upn.farmaappback.model.repository.UsuarioRepository;
 import com.upn.farmaappback.service.IMedFavUsuario;
 import com.upn.farmaappback.service.dto.MedFavUsuarioRequestDTO;
+import com.upn.farmaappback.service.dto.MedFavUsuarioResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -26,7 +28,7 @@ public class MedFavUsuarioImpl implements IMedFavUsuario {
     private MedicamentoRepository medicamentoRepository;
 
    @Override
-    public MedFavUsuarioRequestDTO saveMedFavUsuario(MedFavUsuarioRequestDTO medFavUsuarioRequestDTO) {
+    public MedFavUsuarioResponseDTO saveMedFavUsuario(MedFavUsuarioRequestDTO medFavUsuarioRequestDTO) {
 
        // Buscar el usuario por su ID
        Optional<Usuario> usuarioOptional = usuarioRepository.findById(medFavUsuarioRequestDTO.getIdUsuario());
@@ -40,15 +42,18 @@ public class MedFavUsuarioImpl implements IMedFavUsuario {
        MedFavUsuario medFavUsuario = new MedFavUsuario();
        medFavUsuario.setIdUsuario(usuario);
        medFavUsuario.setIdMedicamentos(medicamento);
+       medFavUsuario.setFecha(Instant.now());
 
        // Guardar medFavUsuario
        MedFavUsuario guardado =  medFavUsuarioRepository.save(medFavUsuario);
 
-       MedFavUsuarioRequestDTO medFavUsuarioRequestSave= new MedFavUsuarioRequestDTO();
+       MedFavUsuarioResponseDTO response= new MedFavUsuarioResponseDTO();
 
-       medFavUsuarioRequestSave.setIdUsuario(guardado.getIdUsuario().getId());
-       medFavUsuarioRequestSave.setIdMedicamento(guardado.getIdMedicamentos().getId());
+       response.setId(guardado.getId());
+       response.setIdUsuario(guardado.getIdUsuario().getId());
+       response.setIdMedicamento(guardado.getIdMedicamentos().getId());
+       response.setFecha(guardado.getFecha());
 
-       return medFavUsuarioRequestSave;
+       return response;
     }
 }

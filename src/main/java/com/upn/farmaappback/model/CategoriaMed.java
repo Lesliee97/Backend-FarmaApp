@@ -14,6 +14,7 @@ import java.util.Set;
 @Table(name = "categoria_med")
 public class CategoriaMed {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

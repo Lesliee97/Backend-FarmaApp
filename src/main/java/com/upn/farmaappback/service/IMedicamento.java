@@ -9,4 +9,5 @@ public interface IMedicamento {
     List<MedicamentoResponseDto> getAllMedicamentoEnStock();
     List<MedicamentoInStockDTO>  getAllMedicamentoInStockById(Long id);
     List<MedicamentoResponseDto> getAllMedicamentosByCategoria(Long idCategoria);
+    List<MedicamentoResponseDto> getAllMedicamentosByNombre(String nombre);
 }

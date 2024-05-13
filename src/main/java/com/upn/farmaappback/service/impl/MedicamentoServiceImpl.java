@@ -30,7 +30,6 @@ public class MedicamentoServiceImpl implements IMedicamento {
 
         final List<MedicamentoResponseDto> response = new ArrayList<>();
 
-
         this.medicamentoRepository.findAll().forEach(medicamento -> {
             MedicamentoResponseDto medicamentoResponse = new MedicamentoResponseDto();
             medicamentoResponse.setId(medicamento.getId());
@@ -89,6 +88,31 @@ public class MedicamentoServiceImpl implements IMedicamento {
             List<Medicamento> medicamentos = this.medicamentoRepository.findMedicamentoByIdCategoria(categoriaMed);
 
             List<MedicamentoResponseDto> response = new ArrayList<>();
+            medicamentos.forEach(medicamento -> {
+                MedicamentoResponseDto medicamentoResponseDto = new MedicamentoResponseDto();
+                medicamentoResponseDto.setId(medicamento.getId());
+                medicamentoResponseDto.setNombre(medicamento.getNombre());
+                medicamentoResponseDto.setFormaFarmaceutica(medicamento.getFormaFarmaceutica());
+                medicamentoResponseDto.setPrecioUnitario(medicamento.getPrecioUnitario());
+                medicamentoResponseDto.setStock(medicamento.getStock());
+                medicamentoResponseDto.setNombreCategoria(medicamento.getIdCategoria().getNombre());
+                response.add(medicamentoResponseDto);
+            });
+
+            return response;
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<MedicamentoResponseDto> getAllMedicamentosByNombre(String nombre) {
+        List<Medicamento> medicamentos = medicamentoRepository.findMedicamentoByNombre(nombre);
+
+        if (!medicamentos.isEmpty()) {
+
+            List<MedicamentoResponseDto> response = new ArrayList<>();
+
             medicamentos.forEach(medicamento -> {
                 MedicamentoResponseDto medicamentoResponseDto = new MedicamentoResponseDto();
                 medicamentoResponseDto.setId(medicamento.getId());

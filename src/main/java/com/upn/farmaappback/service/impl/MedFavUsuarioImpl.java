@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,5 +57,30 @@ public class MedFavUsuarioImpl implements IMedFavUsuario {
        response.setFecha(guardado.getFecha());
 
        return response;
+    }
+
+    @Override
+    public List<MedFavUsuarioResponseDTO> getAllMedFavByUsuario(Long idUsuario) {
+        // Buscar el usuario por su ID
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
+        Usuario usuario = usuarioOptional.orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        List<MedFavUsuario> favoritos = this.medFavUsuarioRepository.findMedFavUsuarioByIdUsuario(usuario);
+        List<MedFavUsuarioResponseDTO> response = new ArrayList<MedFavUsuarioResponseDTO>();
+        
+        if(!favoritos.isEmpty()){
+            MedFavUsuarioResponseDTO favoritoDTO = new MedFavUsuarioResponseDTO();
+            
+            favoritos.forEach(favorite -> {
+                favoritoDTO.setId(favorite.getId());
+                favoritoDTO.setIdUsuario(favorite.getIdUsuario().getId());
+                favoritoDTO.setFecha(favorite.getFecha());
+                favoritoDTO.setIdMedicamento(favorite.getIdMedicamentos().getId());
+
+                response.add(favoritoDTO);
+            });
+        }
+
+        return response;
     }
 }
